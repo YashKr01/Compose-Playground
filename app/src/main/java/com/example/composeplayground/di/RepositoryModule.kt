@@ -31,10 +31,7 @@ object RepositoryModule {
     fun provideUseCases(repository: Repository): UseCases {
         return UseCases(
             saveOnboardingUseCase = SaveOnboardingUseCase(repository),
-            readOnboardingUseCase = ReadOnboardingUseCase(repository),
-//            getAllHeroesUseCase = GetAllHeroesUseCase(repository),
-//            searchHeroesUseCase = SearchHeroesUseCase(repository),
-//            getSelectedHeroUseCase = GetSelectedHeroUseCase(repository)
+            readOnboardingUseCase = ReadOnboardingUseCase(repository)
         )
     }
 

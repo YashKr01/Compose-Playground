@@ -11,9 +11,9 @@ import com.example.composeplayground.ui.theme.ComposePlaygroundTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-@ExperimentalPagerApi
 @ExperimentalAnimationApi
+@ExperimentalPagerApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private lateinit var navController: NavHostController

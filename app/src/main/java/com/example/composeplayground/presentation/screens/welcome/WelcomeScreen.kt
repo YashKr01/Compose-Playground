@@ -1,4 +1,4 @@
-package com.example.composeplayground.presentation.screens
+package com.example.composeplayground.presentation.screens.welcome
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -25,9 +24,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.composeplayground.R
 import com.example.composeplayground.domain.model.OnBoardingPage
+import com.example.composeplayground.navigation.Screen
 import com.example.composeplayground.ui.theme.EXTRA_LARGE_PADDING
 import com.example.composeplayground.ui.theme.PAGING_INDICATOR_SPACING
 import com.example.composeplayground.ui.theme.PAGING_INDICATOR_WIDTH
@@ -46,7 +47,10 @@ import com.google.accompanist.pager.rememberPagerState
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
 @Composable
-fun WelcomeScreen(navHostController: NavHostController) {
+fun WelcomeScreen(
+    navHostController: NavHostController,
+    welcomeViewModel: WelcomeViewModel = hiltViewModel()
+) {
     val pages = listOf(
         OnBoardingPage.First,
         OnBoardingPage.Second,
@@ -80,7 +84,9 @@ fun WelcomeScreen(navHostController: NavHostController) {
             modifier = Modifier.weight(1f),
             pagerState = pagerState
         ) {
-
+            welcomeViewModel.saveOnBoardingState(true)
+            navHostController.popBackStack()
+            navHostController.navigate(Screen.Home.route)
         }
     }
 
