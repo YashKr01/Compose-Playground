@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Compose Playground</string>
     <string name="app_logo">App Logo</string>
+    <string name="onboarding_image">onboarding_image</string>
 </resources>

@@ -6,17 +6,20 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.composeplayground.presentation.screens.WelcomeScreen
 import com.example.composeplayground.presentation.screens.splash.SplashScreen
 import com.example.composeplayground.utils.Constants
+import com.google.accompanist.pager.ExperimentalPagerApi
 
 @Composable
+@ExperimentalPagerApi
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = Screen.Splash.route
     ) {
         composable(route = Screen.Splash.route) { SplashScreen(navController = navController) }
-        composable(route = Screen.Welcome.route) { }
+        composable(route = Screen.Welcome.route) { WelcomeScreen(navHostController = navController) }
         composable(route = Screen.Home.route) { }
         composable(
             route = Screen.Details.route,
