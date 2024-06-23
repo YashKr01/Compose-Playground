@@ -10,4 +10,8 @@ object Constants {
 
     const val ANIME_DATABASE = "anime_database"
 
+    const val ANIME_PREF = "anime-pref"
+
+    const val PREFERENCES_KEY = "onboaring_completed"
+
 }
