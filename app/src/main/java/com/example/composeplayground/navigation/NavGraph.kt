@@ -1,5 +1,6 @@
 package com.example.composeplayground.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -13,6 +14,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 
 @Composable
 @ExperimentalPagerApi
+@ExperimentalAnimationApi
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
