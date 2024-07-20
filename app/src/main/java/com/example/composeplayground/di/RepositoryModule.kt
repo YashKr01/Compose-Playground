@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.composeplayground.data.repository.DataStoreImpl
 import com.example.composeplayground.data.repository.Repository
 import com.example.composeplayground.domain.repository.DataStore
+import com.example.composeplayground.domain.usecases.GetAllHeroesUseCase
 import com.example.composeplayground.domain.usecases.ReadOnboardingUseCase
 import com.example.composeplayground.domain.usecases.SaveOnboardingUseCase
 import com.example.composeplayground.domain.usecases.UseCases
@@ -31,7 +32,8 @@ object RepositoryModule {
     fun provideUseCases(repository: Repository): UseCases {
         return UseCases(
             saveOnboardingUseCase = SaveOnboardingUseCase(repository),
-            readOnboardingUseCase = ReadOnboardingUseCase(repository)
+            readOnboardingUseCase = ReadOnboardingUseCase(repository),
+            getAllHeroesUseCase = GetAllHeroesUseCase(repository)
         )
     }
 

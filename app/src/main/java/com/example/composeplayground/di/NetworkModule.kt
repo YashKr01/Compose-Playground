@@ -3,6 +3,8 @@ package com.example.composeplayground.di
 import androidx.paging.ExperimentalPagingApi
 import com.example.composeplayground.data.local.AnimeDatabase
 import com.example.composeplayground.data.remote.AnimeApi
+import com.example.composeplayground.data.repository.RemoteDataSourceImpl
+import com.example.composeplayground.domain.repository.RemoteDataSource
 import com.example.composeplayground.utils.Constants.BASE_URL
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -49,16 +51,16 @@ object NetworkModule {
         return retrofit.create(AnimeApi::class.java)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideRemoteDataSource(
-//        animeApi: AnimeApi,
-//        animeDatabase: AnimeDatabase
-//    ): RemoteDataSource {
-//        return RemoteDataSourceImpl(
-//            borutoApi = borutoApi,
-//            borutoDatabase = borutoDatabase
-//        )
-//    }
+    @Provides
+    @Singleton
+    fun provideRemoteDataSource(
+        animeApi: AnimeApi,
+        animeDatabase: AnimeDatabase
+    ): RemoteDataSource {
+        return RemoteDataSourceImpl(
+            api = animeApi,
+            database = animeDatabase
+        )
+    }
 
 }

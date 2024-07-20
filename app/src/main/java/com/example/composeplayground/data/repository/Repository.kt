@@ -1,19 +1,18 @@
 package com.example.composeplayground.data.repository
 
 import com.example.composeplayground.domain.repository.DataStore
-import kotlinx.coroutines.flow.Flow
+import com.example.composeplayground.domain.repository.RemoteDataSource
 import javax.inject.Inject
 
 class Repository @Inject constructor(
-    private val dataStore: DataStore
+    private val dataStore: DataStore,
+    private val remote: RemoteDataSource
 ) {
 
-    suspend fun saveOnboardingState(completed: Boolean) {
-        dataStore.saveOnboardingState(completed)
-    }
+    fun getAllHeroes() = remote.getAllHeroes()
 
-    fun readOnboardingState(): Flow<Boolean> {
-        return dataStore.readOnboardingState()
-    }
+    suspend fun saveOnboardingState(completed: Boolean) = dataStore.saveOnboardingState(completed)
+
+    fun readOnboardingState() = dataStore.readOnboardingState()
 
 }
