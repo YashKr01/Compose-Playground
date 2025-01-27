@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
@@ -39,6 +40,7 @@ import com.example.composeplayground.R
 import com.example.composeplayground.domain.model.Hero
 import com.example.composeplayground.navigation.Screen
 import com.example.composeplayground.presentation.components.RatingWidget
+import com.example.composeplayground.presentation.components.ShimmerEffect
 import com.example.composeplayground.ui.theme.HERO_ITEM_HEIGHT
 import com.example.composeplayground.ui.theme.LARGE_PADDING
 import com.example.composeplayground.ui.theme.MEDIUM_PADDING
@@ -56,16 +58,20 @@ fun ListContent(
 
     Log.d("ListContent", "ListContent: ${heroes.loadState}")
 
-    LazyColumn(
-        contentPadding = PaddingValues(all = SMALL_PADDING),
-        verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
-    ) {
-        items(
-            items = heroes,
-            key = { hero -> hero.id }
-        ) { hero ->
-            hero?.let {
-                HeroItem(hero = it, navHostController = navHostController)
+    val result = handlePagingResult(heroes = heroes)
+
+    if (result) {
+        LazyColumn(
+            contentPadding = PaddingValues(all = SMALL_PADDING),
+            verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
+        ) {
+            items(
+                items = heroes,
+                key = { hero -> hero.id }
+            ) { hero ->
+                hero?.let {
+                    HeroItem(hero = it, navHostController = navHostController)
+                }
             }
         }
     }
@@ -196,4 +202,29 @@ private fun HeroItemDarkPreview() {
         ),
         navHostController = rememberNavController()
     )
+}
+
+@Composable
+fun handlePagingResult(heroes: LazyPagingItems<Hero>): Boolean {
+
+    heroes.apply {
+        val error = when {
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            else -> null
+        }
+
+        return when {
+            loadState.refresh is LoadState.Loading -> {
+                ShimmerEffect()
+                false
+            }
+
+            error != null -> false
+            else -> true
+        }
+
+    }
+
 }
